@@ -1,11 +1,12 @@
 // Replace with your actual Firebase config
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDGoM7HMarLx98siTkaxXMctoRYhhRyHWc",
+    authDomain: "nextplaystats-fcd84.firebaseapp.com",
+    projectId: "nextplaystats-fcd84",
+    storageBucket: "nextplaystats-fcd84.firebasestorage.app",
+    messagingSenderId: "1030144413105",
+    appId: "1:1030144413105:web:1a2c7446888059a4820190",
+    measurementId: "G-8YP1JPS3D3"
 };
 
 firebase.initializeApp(firebaseConfig);
