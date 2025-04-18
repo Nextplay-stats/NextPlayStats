@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Escape Velocity by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>No Sidebar - Escape Velocity by HTML5 UP</title>
@@ -251,13 +246,64 @@
 
 		</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.dropotron.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 
-	</body>
+<!-- Firebase Scripts -->
+<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js"></script>
+
+<!-- Firebase Config -->
+<script>
+	const firebaseConfig = {
+		apiKey: "YOUR_API_KEY",
+		authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+		projectId: "YOUR_PROJECT_ID",
+		storageBucket: "YOUR_PROJECT_ID.appspot.com",
+		messagingSenderId: "YOUR_SENDER_ID",
+		appId: "YOUR_APP_ID"
+	};
+	firebase.initializeApp(firebaseConfig);
+	const auth = firebase.auth();
+	const db = firebase.firestore();
+</script>
+
+<!-- Login Script -->
+<script>
+	function login() {
+		const email = document.getElementById("email").value;
+		const password = document.getElementById("password").value;
+		const errorEl = document.getElementById("error-message");
+
+		auth.signInWithEmailAndPassword(email, password)
+			.then((userCredential) => {
+				const uid = userCredential.user.uid;
+
+				db.collection("roles").doc(uid).get().then((doc) => {
+					if (doc.exists) {
+						const role = doc.data().role;
+
+						if (role === "admin") {
+							window.location.href = "admin.html";
+						} else {
+							window.location.href = "dashboard.html";
+						}
+					} else {
+						errorEl.textContent = "No role assigned. Please contact support.";
+					}
+				});
+			})
+			.catch((error) => {
+				errorEl.textContent = error.message;
+			});
+	}
+</script>
+
+</body>
 </html>
